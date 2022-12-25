@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<style>
+	@font-face {
+		font-family: 'ghanachoco';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ghanachoco.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: 'Handon3gyeopsal600g';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal600g.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
+
+	.ghanachoco-font {
+		font-family: 'ghanachoco', sans-serif;
+		color: black;
+	}
+
+	.Handon3gyeopsal600g-font {
+		font-family: 'Handon3gyeopsal600g', sans-serif;
+		color: black;
+	}
+
+	.half-highlight {
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0) 50%, #FFD0AE 50%);
+	}
+
+	.spread-underline {
+		color: #333;
+		text-decoration: none;
+		display: inline-block;
+		padding: 15px 0;
+		position: relative;
+	}
+
+	.spread-underline:after {
+		background: none repeat scroll 0 0 transparent;
+		bottom: 0;
+		content: "";
+		display: block;
+		height: 2px;
+		left: 50%;
+		position: absolute;
+		background: #ffb000;
+		transition: width 0.3s ease 0s, left 0.3s ease 0s;
+		width: 0;
+	}
+
+	.spread-underline:hover:after {
+		width: 100%;
+		left: 0;
+	}
+</style>
+
+<head>
+	<title>머핀의 법칙 - AI 기반 영어 교육</title>
+
+	<meta charset="utf-8" />
+
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+		integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+		crossorigin="anonymous"></script>
+
+	<script type="text/javascript" src="/static/js/dev-vue.js"></script>
+	{% block css %} {% endblock %}
+
+	{% block js %}{% endblock %}
+</head>
+
+<body>
+<div class="fixed-top Handon3gyeopsal600g-font">
+		<div class="collapse" id="navbarToggleExternalContent">
+			<div class="bg-dark p-4" style="color: white;">
+				{%if user.is_authenticated%}
+				<h5 class="text-white h3">{{user.profile.nickname}}님 반갑습니다!</h5>
+				<span class="text-muted">
+					<form>ㅤ
+						<a href="{%url 'user_profile'%}" style="color: white;">내정보 </a>
+						<a href="{%url 'ranking'%}" style="color: white;">ㅤㅤ현재 순위ㅤ</a>
+						{%csrf_token%}
+						<form action="{%url 'logout'%}" method="POST">
+							<input type="submit" value="로그아웃" style="font-size: 0.8rem;">
+						</form>
+						{%else%}
+						<a href="{%url 'signup'%}">회원가입</a>
+						<a href="{%url 'login'%}">로그인</a>
+						{%endif%}
+					</form>
+				</span>
+			</div>
+		</div>
+		<nav class="navbar navbar-dark bg-light">
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="nav-link spread-underline" href="{%url 'voca_cate'%}"
+				style="color:black; font-size:1.1rem;">단어장</a>
+			<a class="nav-link spread-underline" href="{%url 'voca_test'%}"
+				style="color:black; font-size:1.1rem;">단어테스트</a>
+			<a class="nav-link spread-underline" href="{%url 'listen'%}" style="color:black; font-size:1.1rem;">영어듣기</a>
+			<a class="nav-link spread-underline" href="{%url 'pronounce'%}"
+				style="color:black; font-size:1.1rem;">발음연습</a>
+			<a class="nav-link spread-underline" href="{%url 'chatbot'%}" style="color:black; font-size:1.1rem;">챗봇</a>
+			<a class="nav-link spread-underline" href="{%url 'write'%}" style="color:black; font-size:1.1rem;">손글씨
+				쓰기</a>
+			<a class="nav-link spread-underline" href="{%url 'todo:todolist'%}"
+				style="color:black; font-size:1.1rem;">투두리스트</a>
+		</nav>
+	</div>
+	{% block content %}{% endblock %}
+</body>
+
+</html>
